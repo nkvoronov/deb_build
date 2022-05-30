@@ -1,0 +1,39 @@
+commit 5795acffd8706e1cb584284ee5bb3a30986d0e75
+Author: Ard Biesheuvel <ard.biesheuvel@arm.com>
+Date: Tue, 27 Oct 2020 18:02:40 +0100
+Description: 
+
+    crypto/poly1305/asm: fix armv8 pointer authentication
+    
+    PAC pointer authentication signs the return address against the value
+    of the stack pointer, to prevent stack overrun exploits from corrupting
+    the control flow. However, this requires that the AUTIASP is issued with
+    SP holding the same value as it held when the PAC value was generated.
+    The Poly1305 armv8 code got this wrong, resulting in crashes on PAC
+    capable hardware.
+
+    Reviewed-by: Paul Dale <paul.dale@oracle.com>
+    Reviewed-by: Tomas Mraz <tmraz@fedoraproject.org>
+    (Merged from https://github.com/openssl/openssl/pull/13256)
+    
+    (cherry picked from commit fcf6e9d056162d5af64c6f7209388a5c3be2ce57)
+
+Bug: https://github.com/openssl/openssl/pull/13256
+Bug-Ubuntu: https://bugs.launchpad.net/bugs/1960863
+Origin: backport, https://github.com/openssl/openssl/commit/5795acffd8706e1cb584284ee5bb3a30986d0e75
+Last-Update: 2022-02-15
+
+Index: openssl-1.1.1f/crypto/poly1305/asm/poly1305-armv8.pl
+===================================================================
+--- openssl-1.1.1f.orig/crypto/poly1305/asm/poly1305-armv8.pl	2022-02-15 10:04:42.604648017 +1300
++++ openssl-1.1.1f/crypto/poly1305/asm/poly1305-armv8.pl	2022-02-15 10:04:42.600647777 +1300
+@@ -860,8 +860,8 @@
+ 	st1	{$ACC4}[0],[$ctx]
+ 
+ .Lno_data_neon:
+-	.inst	0xd50323bf		// autiasp
+ 	ldr	x29,[sp],#80
++	.inst	0xd50323bf		// autiasp
+ 	ret
+ .size	poly1305_blocks_neon,.-poly1305_blocks_neon
+ 

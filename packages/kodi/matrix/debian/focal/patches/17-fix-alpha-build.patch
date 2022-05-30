@@ -1,0 +1,66 @@
+Description: Fix alpha build
+Forwarded: not-needed
+Author:  Michael Cree <mcree@orcon.net.nz>
+Bug: https://bugs.debian.org/856815
+
+--- a/xbmc/cores/DllLoader/DllLoader.h
++++ b/xbmc/cores/DllLoader/DllLoader.h
+@@ -29,6 +29,7 @@
+     !defined(__aarch64__) && \
+     !defined(__mips__) && \
+     !defined(__s390x__) && \
++    !defined(__alpha__) && \
+     !defined(__SH4__) && \
+     !defined(__sparc__) && \
+     !defined(__arc__) && \
+--- a/xbmc/cores/DllLoader/ldt_keeper.c
++++ b/xbmc/cores/DllLoader/ldt_keeper.c
+@@ -25,6 +25,7 @@
+     !defined(__aarch64__) && \
+     !defined(__mips__) && \
+     !defined(__s390x__) && \
++    !defined(__alpha__) && \
+     !defined(__SH4__) && \
+     !defined(__sparc__) && \
+     !defined(__arc__) && \
+--- a/xbmc/cores/VideoPlayer/VideoRenderers/LinuxRendererGL.h
++++ b/xbmc/cores/VideoPlayer/VideoRenderers/LinuxRendererGL.h
+@@ -300,6 +300,7 @@
+     !defined(__aarch64__) && \
+     !defined(__mips__) && \
+     !defined(__s390x__) && \
++    !defined(__alpha__) && \
+     !defined(__SH4__) && \
+     !defined(__sparc__) && \
+     !defined(__arc__) && \
+--- a/xbmc/threads/Atomics.cpp
++++ b/xbmc/threads/Atomics.cpp
+@@ -111,6 +111,7 @@
+     defined(__arm__) || \
+     defined(__aarch64__) || \
+     defined(__s390x__) || \
++    defined(__alpha__) || \
+     defined(__SH4__) || \
+     defined(__sparc__) || \
+     defined(__arc__) || \
+--- a/xbmc/threads/Atomics.h
++++ b/xbmc/threads/Atomics.h
+@@ -22,7 +22,7 @@
+ 
+ //! @todo Inline these methods
+ long cas(volatile long *pAddr, long expectedVal, long swapVal);
+-#if !defined(__ppc__) && !defined(__powerpc__) && !defined(__arm__) && !defined(__s390x__)
++#if !defined(__ppc__) && !defined(__powerpc__) && !defined(__arm__) && !defined(__s390x__) && !defined(__alpha__)
+ long long cas2(volatile long long* pAddr, long long expectedVal, long long swapVal);
+ #endif
+ long AtomicIncrement(volatile long* pAddr);
+--- a/xbmc/utils/MathUtils.h
++++ b/xbmc/utils/MathUtils.h
+@@ -36,6 +36,7 @@
+     defined(__powerpc__) || \
+     defined(__mips__) || \
+     defined(__s390x__) || \
++    defined(__alpha__) || \
+     defined(__arm__) || \
+     defined(__aarch64__) || \
+     defined(__SH4__) || \

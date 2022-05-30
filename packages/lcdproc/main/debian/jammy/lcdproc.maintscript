@@ -1,0 +1,2 @@
+mv_conffile /etc/init.d/LCDd /etc/init.d/lcdproc 0.5.9-5~ lcdproc
+

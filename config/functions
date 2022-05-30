@@ -1,0 +1,101 @@
+get_pkg_dir() {
+  if [ ! -z $1 ] ; then
+    for _PKG_DIR in `find $PACKAGES -name $1`;do
+      if [ -f $_PKG_DIR/package.mk ]; then
+        . $_PKG_DIR/package.mk
+        echo $_PKG_DIR
+      fi
+    done
+  fi
+}
+
+compare_files() {
+  if cmp $1 $2 &> /dev/null
+  then
+    printf "%${BUILD_INDENT}c ${green}Files are matching [OK]${endcolor}\n" ' '
+  else
+    printf "%${BUILD_INDENT}c ${red}Linker test [FAIL]${endcolor}\n" ' '
+    exit 1
+  fi
+}
+
+get_rev_sources() {
+
+  NEW_REV=""
+
+  if [ "$PKG_SOURCE_TYPE" = "git" ]; then
+    cd $PKG_SOURCE
+    NEW_REV=`git log -n1 --format=%h`
+  elif [ "$PKG_SOURCE_TYPE" = "svn" ]; then
+    cd $PKG_SOURCE
+    NEW_REV=`LANG=C svn info 2>/dev/null | grep Revision: | sed -e 's/.*\: //'`
+  elif [ "$PKG_SOURCE_TYPE" = "hg" ]; then
+    cd $PKG_SOURCE
+    NEW_REV=`hg identify --id`
+  elif [ "$PKG_SOURCE_TYPE" = "web" ]; then
+    NEW_REV="0000001"
+  fi
+
+  echo $NEW_REV
+
+}
+
+get_pref_sources() {
+
+  PREFIX=""
+
+  # Префикс
+  PREFIX=""
+  if [ "$PKG_SOURCE_TYPE" = "git" ]; then
+    PREFIX="git"
+  elif [ "$PKG_SOURCE_TYPE" = "svn" ]; then
+    PREFIX="rev"
+  elif [ "$PKG_SOURCE_TYPE" = "hg" ]; then
+    PREFIX="rev"
+  fi
+
+  echo $PREFIX
+}
+
+get_full_version() {
+
+  PVERSION=$PKG_VERSION
+
+  # Версия пакета ревизия
+  if [ "$PKG_VERSION_REV" != "none" ]; then
+    PVERSION=$PVERSION.$PKG_VERSION_REV
+  fi
+
+  echo $PVERSION
+}
+
+get_file_version() {
+
+  NEW_REV=$(get_rev_sources)
+  FVERSION=""
+  PREFIX=$(get_pref_sources)
+  CUR_DATE_FILE=`date +'%Y%m%d'`
+  PVERSION=$(get_full_version)
+
+  FVERSION=$PVERSION~$PREFIX$CUR_DATE_FILE.$NEW_REV~$PKG_PPA
+
+  echo $FVERSION
+}
+
+get_change_version() {
+
+  NEW_REV=$(get_rev_sources)
+  SVERSION=""
+  PREFIX=$(get_pref_sources)
+  CUR_DATE_FILE=`date +'%Y%m%d'`
+  PVERSION=$(get_full_version)
+
+  # Версия пакета префикс
+  if [ "$PKG_VERSION_PRE" != "none" ]; then
+    PVERSION=$PKG_VERSION_PRE:$PVERSION
+  fi
+
+  SVERSION=$PVERSION~$PREFIX$CUR_DATE_FILE.$NEW_REV~$PKG_PPA
+
+  echo $SVERSION
+}

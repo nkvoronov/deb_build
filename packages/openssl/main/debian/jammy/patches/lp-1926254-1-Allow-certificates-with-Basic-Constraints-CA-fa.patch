@@ -1,0 +1,58 @@
+From 00a0da2f021e6a0bc9519a6a9e5be66d45e6fc91 Mon Sep 17 00:00:00 2001
+From: Tomas Mraz <tmraz@fedoraproject.org>
+Date: Thu, 2 Apr 2020 15:56:12 +0200
+Subject: Allow certificates with Basic Constraints CA:false,
+ pathlen:0
+
+Do not mark such certificates with EXFLAG_INVALID although they
+violate the RFC 5280, they are syntactically correct and
+openssl itself can produce such certificates without any errors
+with command such as:
+
+openssl x509 -req -signkey private.pem -in csr.pem -out cert.pem \
+  -extfile <(echo "basicConstraints=CA:FALSE,pathlen:0")
+
+With the commit ba4356ae4002a04e28642da60c551877eea804f7 the
+EXFLAG_INVALID causes openssl to not consider such certificate
+even as leaf self-signed certificate which is breaking existing
+installations.
+
+Fixes: #11456
+
+Reviewed-by: Bernd Edlinger <bernd.edlinger@hotmail.de>
+Reviewed-by: Viktor Dukhovni <viktor@openssl.org>
+(Merged from https://github.com/openssl/openssl/pull/11463)
+
+(cherry picked from commit 428cf5ff83a48d0b51c97476586b2cbd053b6302)
+
+Origin: backport, https://github.com/openssl/openssl/commit/00a0da2f021e6a0bc9519a6a9e5be66d45e6fc91
+Bug-Ubuntu: https://bugs.launchpad.net/bugs/1926254
+Last-Update: 2021-04-28
+---
+ crypto/x509v3/v3_purp.c | 10 +++++++---
+ 1 file changed, 7 insertions(+), 3 deletions(-)
+
+Index: openssl-1.1.1f/crypto/x509v3/v3_purp.c
+===================================================================
+--- openssl-1.1.1f.orig/crypto/x509v3/v3_purp.c	2021-04-28 12:36:23.171813845 +1200
++++ openssl-1.1.1f/crypto/x509v3/v3_purp.c	2021-04-28 12:36:23.171813845 +1200
+@@ -384,12 +384,16 @@
+         if (bs->ca)
+             x->ex_flags |= EXFLAG_CA;
+         if (bs->pathlen) {
+-            if ((bs->pathlen->type == V_ASN1_NEG_INTEGER)
+-                || !bs->ca) {
++            if (bs->pathlen->type == V_ASN1_NEG_INTEGER) {
+                 x->ex_flags |= EXFLAG_INVALID;
+                 x->ex_pathlen = 0;
+-            } else
++            } else {
+                 x->ex_pathlen = ASN1_INTEGER_get(bs->pathlen);
++                if (!bs->ca && x->ex_pathlen != 0) {
++                    x->ex_flags |= EXFLAG_INVALID;
++                    x->ex_pathlen = 0;
++                }
++            }
+         } else
+             x->ex_pathlen = -1;
+         BASIC_CONSTRAINTS_free(bs);

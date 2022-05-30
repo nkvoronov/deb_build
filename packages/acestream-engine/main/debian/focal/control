@@ -1,0 +1,19 @@
+Source: acestream-engine
+Section: non-free/video
+Priority: extra
+Maintainer: Nikolay Voronov <nkvoronov@gmail.com>
+Build-Depends: debhelper (>= 8.0.0), python2.7, libpython2.7, python-setuptools, python-apsw, libc6
+Standards-Version: 3.9.5
+Homepage: http://wiki.acestream.org/wiki/index.php/Streaming/en#Launching_broadcast
+
+Package: acestream-engine
+Architecture: amd64
+Depends: python-setuptools, python-apsw, net-tools
+Recommends: python-gtk2, python-appindicator
+Description: Ace Stream HD
+ Ace Stream (formerly TorrentStream) is an innovative multimedia platform of a
+ new generation, which includes different products and solutions for ordinary
+ Internet users as well as for professional members of the multimedia market.
+ Ace Stream uses in its core, P2P technology, BitTorrent protocol, which is
+ acknowledged as the most effective protocol to transfer/deliver "heavy content"
+

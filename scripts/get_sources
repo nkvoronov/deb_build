@@ -1,0 +1,116 @@
+#!/bin/bash
+
+. config/options $1 $2 $3
+
+if [ -z "$3" ]; then
+  echo "Использование: $0 package_name package_group package_repos"
+  exit 1
+fi
+
+if [ "$PKG_FOUND" == "no" ]; then
+  printf "${boldred}$1: packages.mk файл не найден${endcolor}\n"
+  exit 1
+fi
+
+if [ "$PKG_SOURCE_TYPE" = "git" ]; then
+
+  # Получение исходников
+  if [ ! -d $PKG_SOURCE ]; then
+    printf "%${BUILD_INDENT}c ${blue}Получение исходников GIT ...${endcolor}\n" ' '
+    if [ "$PKG_SOURCE_TREE_VERSION_TYPE" = "branch" ]; then
+       git clone -b $PKG_SOURCE_TREE_VERSION_NAME $PKG_SOURCE_DEST $PKG_SOURCE
+    else
+       git clone -b master $PKG_SOURCE_DEST $PKG_SOURCE
+    fi
+  fi
+
+  # Обновление исходников
+  cd $PKG_SOURCE
+  printf "%${BUILD_INDENT}c ${blue}Обновление исходников GIT ...${endcolor}\n" ' '
+  if [ "$PKG_SOURCE_TREE_VERSION_TYPE" = "tags" ]; then
+      git checkout tags/$PKG_SOURCE_TREE_VERSION_NAME
+  elif [ "$PKG_SOURCE_TREE_VERSION_TYPE" = "revision" ]; then
+      git checkout $PKG_SOURCE_TREE_VERSION_NAME
+  else
+    git pull
+  fi
+
+elif [ "$PKG_SOURCE_TYPE" = "svn" ]; then
+
+  # Получение исходников
+  if [ ! -d $PKG_SOURCE ]; then
+    printf "%${BUILD_INDENT}c ${blue}Получение исходников SVN ...${endcolor}\n" ' '
+    svn checkout --force $PKG_SOURCE_DEST $PKG_SOURCE
+  fi
+
+  # Обновление исходников
+  cd $PKG_SOURCE
+  printf "%${BUILD_INDENT}c ${blue}Обновление исходников SVN ...${endcolor}\n" ' '
+  svn update
+  if [ "$PKG_SOURCE_TREE_VERSION_TYPE" = "revision" ]; then
+      svn checkout --force $PKG_SOURCE_TREE_VERSION_NAME
+  fi
+
+elif [ "$PKG_SOURCE_TYPE" = "hg" ]; then
+
+  # Получение исходников
+  if [ ! -d $PKG_SOURCE ]; then
+    printf "%${BUILD_INDENT}c ${blue}Получение исходников HG ...${endcolor}\n" ' '
+    if [ "$PKG_SOURCE_TREE_VERSION_TYPE" = "branch" ]; then
+       hg clone -b $PKG_SOURCE_TREE_VERSION_NAME $PKG_SOURCE_DEST $PKG_SOURCE
+    elif [ "$PKG_SOURCE_TREE_VERSION_TYPE" = "none" ]; then
+       hg clone $PKG_SOURCE_DEST $PKG_SOURCE
+    fi
+  fi
+
+  # Обновление исходников
+  cd $PKG_SOURCE
+  printf "%${BUILD_INDENT}c ${blue}Обновление исходников HG ...${endcolor}\n" ' '
+  if [ "$PKG_SOURCE_TREE_VERSION_TYPE" = "revision" ]; then
+      hg pull -r $PKG_SOURCE_TREE_VERSION_NAME
+  elif [ "$PKG_SOURCE_TREE_VERSION_TYPE" = "none" ]; then
+      hg pull
+  fi
+
+elif [ "$PKG_SOURCE_TYPE" = "web" ]; then
+
+  # Получение исходников
+  if [ ! -d $PKG_SOURCE ]; then
+    printf "%${BUILD_INDENT}c ${blue}Загрузка исходников ...${endcolor}\n" ' '
+    mkdir -p $PKG_SOURCE
+    wget --passive-ftp --no-check-certificate -c $PKG_SOURCE_DEST
+    echo $PKG_SOURCE
+    echo $PKG_SOURCE_DEST
+    echo $PKG_SOURCE_DIR
+    for i in $PKG_SOURCE_DEST; do
+      FILE="`basename $i`"
+      case $FILE in
+      *.tar)
+        tar xf $FILE
+        ;;
+      *.tar.bz2 | *.tbz)
+        tar xjf $FILE
+        ;;
+      *.tar.gz | *.tgz)
+        tar xzf $FILE
+        ;;
+      *.tar.xz | *.txz)
+        tar xJf $FILE
+        ;;
+      *.7z)
+        mkdir -p $PKG_SOURCE_DIR
+        7z x -o$PKG_SOURCE_DIR $FILE
+        ;;
+      *.zip)
+        mkdir -p $PKG_SOURCE_DIR
+        unzip -q $FILE -d $PKG_SOURCE_DIR
+        ;;
+      *)
+        ;;
+      esac
+      rm -f $FILE
+      mv $PKG_SOURCE_DIR/* $PKG_SOURCE
+      rm -rf $PKG_SOURCE_DIR
+    done
+  fi
+fi

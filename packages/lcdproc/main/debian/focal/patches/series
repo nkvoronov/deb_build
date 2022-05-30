@@ -1,0 +1,4 @@
+#tweak-conf
+#pkglib_PROGRAMS
+#debian-build-kfreebsd
+lcdproc-0.5.6-imon_cp1251_fonts.patch

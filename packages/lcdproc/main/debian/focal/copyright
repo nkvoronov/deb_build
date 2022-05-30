@@ -1,0 +1,28 @@
+Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: lcdproc
+Upstream-Contact: William W. Ferrell <willfe@yahoo.com>
+Source: http://www.lcdproc.org/
+
+Files: .*
+Copyright: 2009-2011 Markus Dolze
+           1999-2011 William Ferrell
+           1999-2011 Scott Scriven, Joris Robijn, F5 Networks, Inc., Peter Marschall and others, as specified in the corresponding source modules.
+License: GPL-2
+
+Files: debian/*
+Copyright: 1998 Brian Bassett <brian@butterfly.ml.org>
+ 2002 Noel Koethe <noel@debian.org>
+ 2003-2010 Jonathan Oxer <jon@debian.org>
+ 2006-2010 Jose Luis Tallon <jltallon@adv-solutions.net>
+ 2010 Nick Leverton <nick@leverton.org>
+ 2011-2013 Dominique Dumont <dod@debian.org>
+License: GPL-2
+
+Files: debian/autogen.sh
+Copyright: 2001 Henrique de Moraes Holschuh <hmh@debian.org>
+License: GPL-2
+
+License: GPL-2
+ On Debian systems, the complete text of the GNU General Public
+ License can be found in /usr/share/common-licenses/GPL-2.
+

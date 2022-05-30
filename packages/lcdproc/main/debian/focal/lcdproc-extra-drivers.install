@@ -1,0 +1,10 @@
+usr/lib/*/lcdproc/IOWarrior.so usr/lib/lcdproc/
+usr/lib/*/lcdproc/g15.so usr/lib/lcdproc/
+usr/lib/*/lcdproc/hd44780.so usr/lib/lcdproc/
+usr/lib/*/lcdproc/i2500vfd.so usr/lib/lcdproc/
+usr/lib/*/lcdproc/lirc.so usr/lib/lcdproc/
+usr/lib/*/lcdproc/lis.so usr/lib/lcdproc/
+usr/lib/*/lcdproc/picolcd.so usr/lib/lcdproc/
+usr/lib/*/lcdproc/shuttleVFD.so usr/lib/lcdproc/
+usr/lib/*/lcdproc/ula200.so usr/lib/lcdproc/
+usr/lib/*/lcdproc/xosd.so usr/lib/lcdproc/

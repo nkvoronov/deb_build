@@ -1,0 +1,12 @@
+diff -Naur a/Makefile.in b/Makefile.in
+--- a/Makefile.in	2017-02-25 10:50:51.028577594 +0200
++++ b/Makefile.in	2018-05-03 23:24:41.928096080 +0300
+@@ -615,7 +615,7 @@
+ 
+ ifeq (1,@GTEST_CONFIGURED@)
+ check: testsuite
+-	for check_program in $(CHECK_PROGRAMS); do $(CURDIR)/$$check_program; done
++	for check_program in $(CHECK_PROGRAMS); do (which valgrind && valgrind --trace-children=yes $(CURDIR)/$$check_program) || $(CURDIR)/$$check_program || true; done
+ 
+ testsuite: $(CHECK_EXTENSIONS) $(CHECK_PROGRAMS)
+ 

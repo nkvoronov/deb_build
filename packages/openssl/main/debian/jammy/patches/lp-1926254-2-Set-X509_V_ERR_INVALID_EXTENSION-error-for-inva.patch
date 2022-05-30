@@ -1,0 +1,40 @@
+From 29e94f285f7f05b1aec6fa275e320bc5fa37ab1e Mon Sep 17 00:00:00 2001
+From: Tomas Mraz <tmraz@fedoraproject.org>
+Date: Thu, 2 Apr 2020 17:31:21 +0200
+Subject: Set X509_V_ERR_INVALID_EXTENSION error for invalid basic
+ constraints
+
+If we encounter certificate with basic constraints CA:false,
+pathlen present and X509_V_FLAG_X509_STRICT is set we set
+X509_V_ERR_INVALID_EXTENSION error.
+
+Reviewed-by: Bernd Edlinger <bernd.edlinger@hotmail.de>
+Reviewed-by: Viktor Dukhovni <viktor@openssl.org>
+(Merged from https://github.com/openssl/openssl/pull/11463)
+
+(cherry picked from commit fa86e2ee3533bb7fa9f3c62c38920cf960e9fec0)
+
+Origin: backport, https://github.com/openssl/openssl/commit/29e94f285f7f05b1aec6fa275e320bc5fa37ab1e
+Bug-Ubuntu: https://bugs.launchpad.net/bugs/1926254
+Last-Update: 2021-04-28
+---
+ crypto/x509/x509_vfy.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+Index: openssl-1.1.1f/crypto/x509/x509_vfy.c
+===================================================================
+--- openssl-1.1.1f.orig/crypto/x509/x509_vfy.c	2021-04-28 12:36:45.188161055 +1200
++++ openssl-1.1.1f/crypto/x509/x509_vfy.c	2021-04-28 12:36:45.184160991 +1200
+@@ -508,6 +508,12 @@
+                 ret = 1;
+             break;
+         }
++        if ((x->ex_flags & EXFLAG_CA) == 0
++            && x->ex_pathlen != -1
++            && (ctx->param->flags & X509_V_FLAG_X509_STRICT)) {
++            ctx->error = X509_V_ERR_INVALID_EXTENSION;
++            ret = 0;
++        }
+         if (ret == 0 && !verify_cb_cert(ctx, x, i, X509_V_OK))
+             return 0;
+         /* check_purpose() makes the callback as needed */

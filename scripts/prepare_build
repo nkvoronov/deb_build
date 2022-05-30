@@ -1,0 +1,59 @@
+#!/bin/bash
+
+. config/options $1 $2 $3 $4 $5
+
+if [ -z "$5" ]; then
+  echo "Использование: $0 package_name package_group package_repos package_release revision"
+  exit 1
+fi
+
+if [ "$PKG_FOUND" == "no" ]; then
+  printf "${boldred}$1: packages.mk файл не найден${endcolor}\n"
+  exit 1
+fi
+
+PKG_RELEASE=$4
+PKG_REV=$5
+
+# Рабочая папка
+WORK_DIR=$PKG_NAME-$(get_full_version)
+
+unset -f get_data
+
+. $PKG_DIR/package.mk
+
+# Очищаем папку сборки
+rm -rf $PKG_BUILD/$PKG_RELEASE
+mkdir -p $PKG_BUILD/$PKG_RELEASE
+
+# Копируем исходники
+cp -r $PKG_SOURCE $PKG_BUILD/$PKG_RELEASE
+mv $PKG_BUILD/$PKG_RELEASE/$PKG_GROUP $PKG_BUILD/$PKG_RELEASE/$WORK_DIR
+
+# Очистка CVS
+if [ "$PKG_CVS_CLEAR" == "yes" ] ; then
+  rm -rf $PKG_BUILD/$PKG_RELEASE/$WORK_DIR/.git
+  rm -rf $PKG_BUILD/$PKG_RELEASE/$WORK_DIR/.svn
+  rm -rf $PKG_BUILD/$PKG_RELEASE/$WORK_DIR/.hg
+fi
+
+# Очистка
+rm -f $PKG_BUILD/$PKG_RELEASE/$WORK_DIR/.gitignore
+rm -f $PKG_BUILD/$PKG_RELEASE/$WORK_DIR/.gitmodules
+rm -rf $PKG_BUILD/$PKG_RELEASE/$WORK_DIR/debian
+find $PKG_BUILD/$PKG_RELEASE/$WORK_DIR -type d -empty -delete
+
+# Получение дополнительных данных
+if [ "$(type -t get_data)" = "function" ]; then
+  get_data
+fi
+
+# Копируем дополнительные данные
+if [ -d $PKG_DIR/data ]; then
+  cp -R $PKG_DIR/data/* $PKG_BUILD/$PKG_RELEASE/$WORK_DIR
+fi
+
+# git ревизия для KODI
+if [ "$PKG_NAME" = "kodi" ]; then
+  echo $PKG_REV > $PKG_BUILD/$PKG_RELEASE/$WORK_DIR/VERSION
+fi

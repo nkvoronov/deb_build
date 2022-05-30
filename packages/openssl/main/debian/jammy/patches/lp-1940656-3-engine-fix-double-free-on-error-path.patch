@@ -1,0 +1,36 @@
+From e41290cfc007b833b393864cf12e0d8d815b7081 Mon Sep 17 00:00:00 2001
+From: Pauli <pauli@openssl.org>
+Date: Mon, 19 Apr 2021 08:57:18 +1000
+Subject: [PATCH 3/3] engine: fix double free on error path.
+
+In function try_decode_PKCS8Encrypted, p8 is freed via X509_SIG_free() at line 481.
+If function new_EMBEDDED() returns a null pointer at line 483, the execution will goto nop8.
+In the nop8 branch, p8 is freed again at line 491.
+
+Bug reported by @Yunlongs
+
+Fixes #14915
+
+Reviewed-by: Tomas Mraz <tomas@openssl.org>
+(Merged from https://github.com/openssl/openssl/pull/14921)
+
+(cherry picked from commit efe8d69daa1a68be0a7f0f73220947c848e7ed1d)
+---
+ crypto/store/loader_file.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/crypto/store/loader_file.c b/crypto/store/loader_file.c
+index 9c9e3bd085..258f71afec 100644
+--- a/crypto/store/loader_file.c
++++ b/crypto/store/loader_file.c
+@@ -370,6 +370,7 @@ static OSSL_STORE_INFO *try_decode_PKCS8Encrypted(const char *pem_name,
+     mem->data = (char *)new_data;
+     mem->max = mem->length = (size_t)new_data_len;
+     X509_SIG_free(p8);
++    p8 = NULL;
+ 
+     store_info = ossl_store_info_new_EMBEDDED(PEM_STRING_PKCS8INF, mem);
+     if (store_info == NULL) {
+-- 
+2.30.2
+

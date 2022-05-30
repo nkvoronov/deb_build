@@ -1,0 +1,12 @@
+diff -Naur a/system/addon-manifest.xml b/system/addon-manifest.xml
+--- a/system/addon-manifest.xml	2017-10-04 19:53:22.049006070 +0300
++++ b/system/addon-manifest.xml	2018-05-03 23:30:07.581805709 +0300
+@@ -20,7 +20,7 @@
+   <addon>metadata.local</addon>
+   <addon>metadata.themoviedb.org</addon>
+   <addon>metadata.tvdb.com</addon>
+-  <addon>repository.xbmc.org</addon>
++  <addon optional="true">repository.xbmc.org</addon>
+   <addon>resource.images.weathericons.default</addon>
+   <addon>resource.language.en_gb</addon>
+   <addon>resource.uisounds.kodi</addon>

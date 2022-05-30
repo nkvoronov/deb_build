@@ -1,0 +1,28 @@
+#!/bin/bash
+
+. config/options $1 $2 $3
+
+if [ -z "$3" ]; then
+  echo "Использование: $0 package_name package_group package_repos"
+  exit 1
+fi
+
+if [ "$PKG_FOUND" == "no" ]; then
+  printf "${boldred}$1: packages.mk файл не найден${endcolor}\n"
+  exit 1
+fi
+
+unset -f get_version
+
+. $PKG_DIR/package.mk
+
+PKG_GET_VERSION=""
+
+# Получение новой версии
+if [ "$(type -t get_version)" = "function" ]; then
+  PKG_GET_VERSION=$(get_version)
+else
+  PKG_GET_VERSION=$PKG_VERSION
+fi
+
+echo $PKG_GET_VERSION

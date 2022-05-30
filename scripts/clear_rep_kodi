@@ -1,0 +1,56 @@
+#!/bin/sh
+
+. config/local-repos
+
+# Kodi
+reprepro -b $ROOT_REPOSITORY remove $PKG_RELEASE_LIST kodi
+reprepro -b $ROOT_REPOSITORY remove $PKG_RELEASE_LIST kodi-addon-dev
+reprepro -b $ROOT_REPOSITORY remove $PKG_RELEASE_LIST kodi-bin
+reprepro -b $ROOT_REPOSITORY remove $PKG_RELEASE_LIST kodi-eventclients-common
+reprepro -b $ROOT_REPOSITORY remove $PKG_RELEASE_LIST kodi-eventclients-dev
+reprepro -b $ROOT_REPOSITORY remove $PKG_RELEASE_LIST kodi-eventclients-kodi-send
+reprepro -b $ROOT_REPOSITORY remove $PKG_RELEASE_LIST kodi-eventclients-ps3
+reprepro -b $ROOT_REPOSITORY remove $PKG_RELEASE_LIST kodi-eventclients-wiiremote
+reprepro -b $ROOT_REPOSITORY remove $PKG_RELEASE_LIST kodi-ffmpeg-dev
+reprepro -b $ROOT_REPOSITORY remove $PKG_RELEASE_LIST kodi-tools-texturepacker
+
+# Kodi Addons
+reprepro -b $ROOT_REPOSITORY remove $PKG_RELEASE_LIST kodi-pvr-hts
+reprepro -b $ROOT_REPOSITORY remove $PKG_RELEASE_LIST kodi-pvr-hts-dbg
+reprepro -b $ROOT_REPOSITORY remove $PKG_RELEASE_LIST kodi-pvr-tvheadend-hts
+reprepro -b $ROOT_REPOSITORY remove $PKG_RELEASE_LIST kodi-pvr-iptvsimple
+reprepro -b $ROOT_REPOSITORY remove $PKG_RELEASE_LIST kodi-pvr-iptvsimple-dbg
+
+reprepro -b $ROOT_REPOSITORY remove $PKG_RELEASE_LIST kodi-visualization-projectm
+reprepro -b $ROOT_REPOSITORY remove $PKG_RELEASE_LIST kodi-visualization-projectm-dbg
+
+reprepro -b $ROOT_REPOSITORY remove $PKG_RELEASE_LIST kodi-audioencoder-flac
+reprepro -b $ROOT_REPOSITORY remove $PKG_RELEASE_LIST kodi-audioencoder-flac-dbg
+reprepro -b $ROOT_REPOSITORY remove $PKG_RELEASE_LIST kodi-audioencoder-lame
+reprepro -b $ROOT_REPOSITORY remove $PKG_RELEASE_LIST kodi-audioencoder-lame-dbg
+reprepro -b $ROOT_REPOSITORY remove $PKG_RELEASE_LIST kodi-audioencoder-vorbis
+reprepro -b $ROOT_REPOSITORY remove $PKG_RELEASE_LIST kodi-audioencoder-vorbis-dbg
+reprepro -b $ROOT_REPOSITORY remove $PKG_RELEASE_LIST kodi-audioencoder-wav
+reprepro -b $ROOT_REPOSITORY remove $PKG_RELEASE_LIST kodi-audioencoder-wav-dbg
+
+reprepro -b $ROOT_REPOSITORY remove $PKG_RELEASE_LIST kodi-inputstream-rtmp
+reprepro -b $ROOT_REPOSITORY remove $PKG_RELEASE_LIST kodi-inputstream-rtmp-dbg
+reprepro -b $ROOT_REPOSITORY remove $PKG_RELEASE_LIST kodi-inputstream-adaptive
+reprepro -b $ROOT_REPOSITORY remove $PKG_RELEASE_LIST kodi-inputstream-adaptive-dbg
+reprepro -b $ROOT_REPOSITORY remove $PKG_RELEASE_LIST kodi-inputstream-ffmpegdirect
+
+reprepro -b $ROOT_REPOSITORY remove $PKG_RELEASE_LIST kodi-imagedecoder-heif
+reprepro -b $ROOT_REPOSITORY remove $PKG_RELEASE_LIST kodi-imagedecoder-heif-dbg
+reprepro -b $ROOT_REPOSITORY remove $PKG_RELEASE_LIST kodi-imagedecoder-mpo
+reprepro -b $ROOT_REPOSITORY remove $PKG_RELEASE_LIST kodi-imagedecoder-mpo-dbg
+reprepro -b $ROOT_REPOSITORY remove $PKG_RELEASE_LIST kodi-imagedecoder-raw
+reprepro -b $ROOT_REPOSITORY remove $PKG_RELEASE_LIST kodi-imagedecoder-raw-dbg
+
+reprepro -b $ROOT_REPOSITORY remove $PKG_RELEASE_LIST kodi-vfs-libarchive
+reprepro -b $ROOT_REPOSITORY remove $PKG_RELEASE_LIST kodi-vfs-libarchive-dbg
+reprepro -b $ROOT_REPOSITORY remove $PKG_RELEASE_LIST kodi-vfs-rar
+reprepro -b $ROOT_REPOSITORY remove $PKG_RELEASE_LIST kodi-vfs-rar-dbg
+reprepro -b $ROOT_REPOSITORY remove $PKG_RELEASE_LIST kodi-vfs-sacd
+reprepro -b $ROOT_REPOSITORY remove $PKG_RELEASE_LIST kodi-vfs-sacd-dbg
+reprepro -b $ROOT_REPOSITORY remove $PKG_RELEASE_LIST kodi-vfs-sftp
+reprepro -b $ROOT_REPOSITORY remove $PKG_RELEASE_LIST kodi-vfs-sftp-dbg

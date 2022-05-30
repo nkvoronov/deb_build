@@ -1,0 +1,139 @@
+#!/bin/bash
+
+. config/options $1 $2 $3
+
+if [ -z "$3" ]; then
+  echo "Использование: $0 package_name package_group package_repos"
+  exit 1
+fi
+
+if [ "$PKG_FOUND" == "no" ]; then
+  printf "${boldred}$1: packages.mk файл не найден${endcolor}\n"
+  exit 1
+fi
+
+if [ ! -f config/$3-repos ]; then
+  printf "${boldred}$0: $3-repos файл не найден${endcolor}\n"
+  exit 1
+fi
+
+. config/$3-repos
+
+printf "%${BUILD_INDENT}c ${magenta}PACKAGE - ${PKG_NAME} (${PKG_GROUP}-${PKG_REPOS}) ${endcolor}\n" ' '
+printf "%${BUILD_INDENT}c ${yellow}BUILD ...${endcolor}\n" ' '
+
+./scripts/get_sources $1 $2 $3
+NEW_REV=$(get_rev_sources)
+PKG_GET_VERSION=$(./scripts/check_version $1 $2 $3)
+
+NEW_VERSION="no"
+
+# Проверка новой версии
+VERSION_TEXT_OLD="PKG_VERSION=\"$PKG_VERSION\""
+VERSION_TEXT_NEW="PKG_VERSION=\"$PKG_GET_VERSION\""
+PPA_TEXT_OLD="PKG_PPA=\"$PKG_PPA\""
+
+if [ "$PKG_NAME" != "kodi" ]; then
+  if [ "$PKG_GET_VERSION" != "$PKG_VERSION" ] ; then
+    sed -i 's/'$VERSION_TEXT_OLD'/'$VERSION_TEXT_NEW'/g' $PKG_DIR/package.mk
+    PKG_VERSION=$PKG_GET_VERSION
+    NEW_VERSION="yes"
+  fi
+else
+  NARR_VERSION=($PKG_GET_VERSION)
+  if [ ${#NARR_VERSION[@]} == 2 ]; then
+    NVERSION=${NARR_VERSION[0]}
+    NPPA=${NARR_VERSION[1]}
+  else
+    NVERSION=$PKG_GET_VERSION
+    NPPA=""
+  fi
+  OPPA1=$(echo $PKG_PPA | sed 's/~/ /g')
+  OARR_PPA=($OPPA1)
+  if [ ${#OARR_PPA[@]} == 2 ]; then
+    OPPA0=${OARR_PPA[0]}
+    OPPA1=${OARR_PPA[1]}
+  else
+    OPPA0=""
+    OPPA1=$PKG_PPA
+  fi
+  if [ "$NVERSION" != "$PKG_VERSION" ]; then
+    VERSION_TEXT_NEW="PKG_VERSION=\"$NVERSION\""
+    sed -i 's/'$VERSION_TEXT_OLD'/'$VERSION_TEXT_NEW'/g' $PKG_DIR/package.mk
+    PKG_VERSION=$NVERSION
+    NEW_VERSION="yes"
+  else
+    if [ -n "$NPPA" ] || [ -n "$OPPA0" ]; then
+      if [ "$NPPA" != "$OPPA0" ] ; then
+        PKG_PPA_NEW=$NPPA~$OPPA1
+        PPA_TEXT_NEW="PKG_PPA=\"$PKG_PPA_NEW\""
+        sed -i 's/'$PPA_TEXT_OLD'/'$PPA_TEXT_NEW'/g' $PKG_DIR/package.mk
+        PKG_PPA=$PKG_PPA_NEW
+        NEW_VERSION="yes"
+      fi
+    fi
+  fi
+fi
+
+# Рабочая папка
+WORK_DIR=$PKG_NAME-$(get_full_version)
+
+# Релизы
+for PKG_RELEASE in $PKG_RELEASE_LIST
+do
+  # Сбока отдельного релиза
+  printf "%${BUILD_INDENT}c ${magenta}>> RELEASE - ${PKG_NAME} (${PKG_GROUP}-${PKG_RELEASE}-${PKG_REPOS})${endcolor}\n" ' '
+
+  REV_FILE="revision-$PKG_GROUP-$PKG_RELEASE-$PKG_REPOS"
+  OLD_REV="0000000"
+  [ -f $PKG_STAMPS/$REV_FILE ] && . $PKG_STAMPS/$REV_FILE
+
+  if [ "$NEW_VERSION" == "yes" ]; then
+    printf "%${BUILD_INDENT}c ${red}Новая версия   - ${PKG_GET_VERSION}${endcolor}\n" ' '
+  fi
+
+  printf "%${BUILD_INDENT}c ${green}Новая ревизия  - ${NEW_REV}${endcolor}\n" ' '
+  printf "%${BUILD_INDENT}c ${green}Старая ревизия - ${OLD_REV}${endcolor}\n" ' '
+
+  # Строим только если новый релиз в исходниках
+  if [ "$NEW_REV" != "$OLD_REV" ]; then
+
+    cd $ROOT
+
+    if [ "$3" = "local" ]; then
+      rm -f $STAMPS/$3-update-key
+    fi
+
+    # Подготовка исходников к билду
+    ./scripts/prepare_build $1 $2 $3 $PKG_RELEASE $NEW_REV
+
+    # Изменяем changelog
+    ./scripts/create_changelog $1 $2 $3 $PKG_RELEASE
+
+    # Собирам deb пакет
+    printf "%${BUILD_INDENT}c ${blue}Сборка deb пакета ...${endcolor}\n" ' '
+    cd $PKG_BUILD/$PKG_RELEASE/$WORK_DIR
+    if [ "$PKG_REPOS" = "launchpad" ]; then
+      debuild -S -sa
+    else
+      debuild -us -uc
+    fi
+
+    # Отправляем deb пакеты в репос
+    printf "%${BUILD_INDENT}c ${blue}Перемещение пакетов в хранилище ...${endcolor}\n" ' '
+    cd $PKG_BUILD/$PKG_RELEASE
+    if [ "$PKG_REPOS" = "launchpad" ]; then
+      DVERSION=$(get_file_version)~$PKG_RELEASE
+      dput $PKG_LAUNCHPAD_REPOSITORY ${PKG_NAME}_${DVERSION}_source.changes
+    else
+      reprepro -b $ROOT_REPOSITORY  includedeb $PKG_RELEASE *.deb
+    fi
+
+    # Сохраняем текущую ревизию
+    mkdir -p $PKG_STAMPS
+    rm -f $PKG_STAMPS/$REV_FILE
+    cat >>$PKG_STAMPS/$REV_FILE << MYDATA
+OLD_REV="$NEW_REV"
+MYDATA
+  fi
+done

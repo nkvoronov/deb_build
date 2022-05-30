@@ -1,0 +1,7 @@
+#!/usr/bin/make -f
+
+%:
+	dh $@
+
+override_dh_shlibdeps:
+	LD_LIBRARY_PATH=$(LD_LIBRARY_PATH):debian/acestream-engine/usr/share/acestream/lib dh_shlibdeps --dpkg-shlibdeps-params="--ignore-missing-info"

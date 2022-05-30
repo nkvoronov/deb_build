@@ -1,0 +1,29 @@
+#!/usr/bin/make -f
+
+#DH_VERBOSE=1
+DIR := $(CURDIR)
+DESTDIR := $(DIR)/debian/oscam
+DESTDIR_DBG := $(DIR)/debian/oscam-dbg
+VER := $(shell ./config.sh --oscam-version)
+SVN_REV := $(shell ./config.sh --oscam-revision)
+TARGET := $(shell $(CC) -dumpmachine 2>/dev/null)
+BINDIR := Distribution
+OSCAM_BIN := $(BINDIR)/oscam-$(VER)$(SVN_REV)-$(subst cygwin,cygwin.exe,$(TARGET))
+
+.PHONY: override_dh_strip override_dh_auto_install
+
+override_dh_gencontrol:
+	dh_gencontrol
+
+override_dh_strip:
+	dh_strip --dbg-package=oscam-dbg
+	mkdir -p "$(DESTDIR_DBG)/usr/bin/debug/usr/bin"
+	cp "$(DIR)/$(OSCAM_BIN).debug"  "$(DESTDIR_DBG)/usr/bin/debug/usr/bin/oscam"
+
+override_dh_auto_install:
+	dh_auto_install --destdir=debian/oscam
+	mkdir -p "$(DESTDIR)/usr/bin"
+	cp "$(DIR)/$(OSCAM_BIN)"  "$(DESTDIR)/usr/bin/oscam"
+
+%:
+	dh $@

@@ -1,0 +1,39 @@
+#!/bin/bash
+
+. config/options $1 $2 none
+
+if [ -z "$2" ]; then
+  echo "Использование: $0 group repos"
+  exit 1
+fi
+
+PKG_GROUP=$1
+PKG_REPOS=$2
+
+if [ ! -f config/packages-$PKG_GROUP ]; then
+  printf "${boldred}$0: packages-$PKG_GROUP файл не найден${endcolor}\n"
+  exit 1
+fi
+
+. config/packages-$PKG_GROUP
+
+# Пакеты
+for PKG_NAME in $LIST_PKG
+do
+  # Сбока отдельного пакета
+  ./scripts/build $PKG_NAME $PKG_GROUP $PKG_REPOS
+done
+
+if [ ! -f config/$2-repos ]; then
+  printf "${boldred}$0: $2-repos файл не найден${endcolor}\n"
+  exit 1
+fi
+
+. config/$2-repos
+
+if [ "$PKG_REPOS" = "local" ] && [ ! -f $STAMPS/$PKG_REPOS-update-key ]; then
+  printf "%${BUILD_INDENT}c ${blue}Обновление ключей ...${endcolor}\n" ' '
+  cd $ROOT_REPOSITORY/dists/$PKG_RELEASE_LIST
+  gpg --armor -o Release.gpg -sb Release
+  touch $STAMPS/$PKG_REPOS-update-key
+fi

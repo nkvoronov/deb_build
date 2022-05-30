@@ -1,0 +1,26 @@
+Source: kodi-visualization-projectm
+Priority: extra
+Maintainer: Nikolay Voronov <nkvoronov@gmail.com>
+Uploaders: Arne Morten Kvarving <spiff@xbmc.org>,
+           Wolfgang Schupp <wsnipex@kodi.tv>
+Build-Depends: debhelper (>= 9.0.0), cmake, kodi-addon-dev, libprojectm-dev,
+               libgles2-mesa-dev [arm64 armhf], libgl1-mesa-dev [i386 amd64],
+               pkg-config
+Standards-Version: 4.1.2
+Section: libs
+Homepage: https://kodi.tv
+
+Package: kodi-visualization-projectm
+Section: libs
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: ProjectM visualizer for Kodi
+ ProjectM visualizer for Kodi
+
+Package: kodi-visualization-projectm-dbg
+Section: debug
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: debug symbols for ProjectM visualizer for Kodi
+ debug symbols for ProjectM visualizer for Kodi
+

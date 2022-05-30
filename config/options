@@ -1,0 +1,4 @@
+. config/path $1 $2 $3
+
+# Создатель пакета
+MAINTAINER="Nikolay Voronov (Launchpad) <nkvoronov@gmail.com>"

@@ -1,0 +1,5 @@
+lcdproc (0.5.5-3) unstable; urgency=low
+
+  svga support is now removed from Debian version of lcdproc.
+
+ -- Dominique Dumont <dod@debian.org>  Sat, 17 Aug 2013 15:16:12 +0200

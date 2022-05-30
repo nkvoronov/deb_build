@@ -1,0 +1,24 @@
+Source: oscam
+Section: video
+Priority: extra
+Maintainer: Nikolay Voronov <nkvoronov@gmail.com>
+Build-Depends: debhelper (>= 8.0.0), cmake, subversion, libpcsclite-dev, libusb-1.0-0-dev, libssl-dev
+Standards-Version: 3.9.5
+Homepage: http://www.streamboard.tv/svn/oscam/
+Vcs-Git: http://www.streamboard.tv/svn/oscam/trunk
+Vcs-Browser: http://www.streamboard.tv/svn/oscam/
+
+Package: oscam
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: Open Source Conditional Access Module
+ The OSCam software is an open source multi-protocol/multi-platform SC server.
+
+Package: oscam-dbg
+Architecture: any
+Section: debug
+Priority: extra
+Depends: oscam (= ${binary:Version}), ${misc:Depends}
+Description: debugging symbols for oscam
+ .
+ This package contains only the debugging symbols for oscam

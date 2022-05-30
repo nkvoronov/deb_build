@@ -1,0 +1,7 @@
+#!/bin/sh
+
+. config/local-repos
+
+# Tvheadend
+reprepro -b $ROOT_REPOSITORY remove $PKG_RELEASE_LIST tvheadend
+reprepro -b $ROOT_REPOSITORY remove $PKG_RELEASE_LIST tvheadend-dbg
