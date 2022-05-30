@@ -34,8 +34,8 @@ PKG_LAUNCHPAD_REPOSITORY="tvheadend"
 # Очистка CVS (.git, .svn, .hg)
 PKG_CVS_CLEAR="yes"
 
-#add data
-https://github.com/nkvoronov/deb_build.git
+# add data
+# https://github.com/nkvoronov/deb_build.git
 
 # Получить версию исходников
 get_version() {

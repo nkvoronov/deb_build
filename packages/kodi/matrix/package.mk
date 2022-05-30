@@ -26,7 +26,7 @@ PKG_SOURCE_TREE_VERSION_NAME="19.4-Matrix"
 PKG_SOURCE_DIR="none"
 
 # Вариант сборки
-PKG_PPA="ppa3"
+PKG_PPA="ppa1"
 
 # Имя ресурса на launchpad
 PKG_LAUNCHPAD_REPOSITORY="kodi-matrix"
