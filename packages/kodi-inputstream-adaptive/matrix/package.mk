@@ -2,7 +2,7 @@
 PKG_NAME="kodi-inputstream-adaptive"
 
 # Версия пакета
-PKG_VERSION="19.0.4"
+PKG_VERSION="19.0.5"
 
 # Версия пакета префикс
 PKG_VERSION_PRE="6"

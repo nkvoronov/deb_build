@@ -2,7 +2,7 @@
 PKG_NAME="kodi-vfs-libarchive"
 
 # Версия пакета
-PKG_VERSION="19.1.0"
+PKG_VERSION="19.2.0"
 
 # Версия пакета префикс
 PKG_VERSION_PRE="6"
