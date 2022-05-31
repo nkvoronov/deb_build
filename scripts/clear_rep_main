@@ -5,3 +5,12 @@
 # Tvheadend
 reprepro -b $ROOT_REPOSITORY remove $PKG_RELEASE_LIST tvheadend
 reprepro -b $ROOT_REPOSITORY remove $PKG_RELEASE_LIST tvheadend-dbg
+
+#Oscam
+reprepro -b $ROOT_REPOSITORY remove $PKG_RELEASE_LIST oscam
+reprepro -b $ROOT_REPOSITORY remove $PKG_RELEASE_LIST oscam-dbg
+
+#Lcdproc
+reprepro -b $ROOT_REPOSITORY remove $PKG_RELEASE_LIST lcdproc
+reprepro -b $ROOT_REPOSITORY remove $PKG_RELEASE_LIST lcdproc-dbg
+reprepro -b $ROOT_REPOSITORY remove $PKG_RELEASE_LIST lcdproc-extra-drivers

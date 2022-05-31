@@ -1,10 +1,10 @@
 # Список пакетов main
-LIST_PKG="tvheadend \
-oscam \
-lcdproc"
+LIST_PKG="oscam"
+#\
+#oscam \
+#lcdproc"
 
 #old
-
 #projectm \
 #acestream-engine \
 #openssl \

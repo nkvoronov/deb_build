@@ -76,7 +76,7 @@ else
 fi
 
 # Рабочая папка
-WORK_DIR=$PKG_NAME-$PKG_VERSION
+WORK_DIR=$PKG_NAME_$PKG_VERSION
 
 # Релизы
 for PKG_RELEASE in $PKG_RELEASE_LIST
