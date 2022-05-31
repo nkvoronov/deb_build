@@ -14,9 +14,9 @@ set -e
   PKG_NAME="$1"
   # Версия пакета
   PKG_VERSION="none"
-  # Версия пакета префикс
+  # Эпоха (по умолчанию "none")
   PKG_EPOCH="none"
-  # Версия пакета ревизия
+  # Ревизия debian (по умолчанию "none")
   PKG_DEBIAN_REV="none"
   # Тип получаемых исходников (git,svn,hg,web)
   PKG_SOURCE_TYPE="none"

@@ -55,9 +55,9 @@ get_pref_sources() {
 }
 
 get_file_version() {
-  
+
   FVERSION=""
-    
+
   SPREFIX=$(get_pref_sources)
 
   if [ "$SPREFIX" != "none" ]; then
@@ -67,19 +67,19 @@ get_file_version() {
   else
     FVERSION=$PKG_VERSION
   fi
-  
+
   # Ревизия debian
   if [ "$PKG_DEBIAN_REV" != "none" ]; then
     FVERSION=$FVERSION-$PKG_DEBIAN_REV
-  fi 
- 
+  fi
+
   echo $FVERSION~$PKG_PPA
 }
 
 get_change_version() {
 
   SVERSION=$(get_file_version)
-  
+
   CVERSION=""
 
   # Эпоха
