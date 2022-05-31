@@ -76,7 +76,7 @@ else
 fi
 
 # Рабочая папка
-WORK_DIR=$PKG_NAME_$PKG_VERSION
+WORK_DIR=${PKG_NAME}_${PKG_VERSION}
 
 # Релизы
 for PKG_RELEASE in $PKG_RELEASE_LIST
@@ -112,7 +112,7 @@ do
 
     # Собирам deb пакет
     printf "%${BUILD_INDENT}c ${blue}Сборка deb пакета ...${endcolor}\n" ' '
-    cd $PKG_BUILD/$PKG_RELEASE/$WORK_DIR
+    cd $PKG_BUILD/$PKG_RELEASE/${WORK_DIR}
     if [ "$PKG_REPOS" = "launchpad" ]; then
       debuild -S -sa
     else
@@ -123,8 +123,8 @@ do
     printf "%${BUILD_INDENT}c ${blue}Перемещение пакетов в хранилище ...${endcolor}\n" ' '
     cd $PKG_BUILD/$PKG_RELEASE
     if [ "$PKG_REPOS" = "launchpad" ]; then
-      DVERSION=$(get_file_version)~$PKG_RELEASE
-      dput $PKG_LAUNCHPAD_REPOSITORY ${PKG_NAME}_${DVERSION}_source.changes
+      DVERSION=$(get_deb_version)
+      dput $PKG_LAUNCHPAD_REPOSITORY ${PKG_NAME}_${DVERSION}~${PKG_PPA}~${PKG_RELEASE}_source.changes
     else
       reprepro -b $ROOT_REPOSITORY  includedeb $PKG_RELEASE *.deb
     fi

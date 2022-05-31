@@ -15,18 +15,17 @@ fi
 PKG_RELEASE=$4
 
 # Рабочая папка
-WORK_DIR=$PKG_NAME-$PKG_VERSION
+WORK_DIR=${PKG_NAME}_${PKG_VERSION}
 
 # Создаем архив исходников
 printf "%${BUILD_INDENT}c ${blue}Создание оригинального tar ...${endcolor}\n" ' '
-FVERSION=$(get_file_version)~$PKG_RELEASE
 cd $PKG_BUILD/$PKG_RELEASE
-tar -czf ${PKG_NAME}_${FVERSION}.orig.tar.gz $WORK_DIR/
+tar -czf ${PKG_NAME}_$(get_file_version).orig.tar.gz $WORK_DIR/
 
 # Копируем файлы debian для соответствующего релиза
 cp -R $PKG_DIR/debian/$PKG_RELEASE $PKG_BUILD/$PKG_RELEASE/$WORK_DIR/debian
 
-CVERSION=$(get_change_version)~$PKG_RELEASE
+CVERSION=$(get_change_version)~${PKG_PPA}~${PKG_RELEASE}
 
 # Изменяем changelog
 printf "%${BUILD_INDENT}c ${blue}Изменение changelog ...${endcolor}\n" ' '

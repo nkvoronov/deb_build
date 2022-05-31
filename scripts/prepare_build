@@ -16,7 +16,7 @@ PKG_RELEASE=$4
 PKG_REV=$5
 
 # Рабочая папка
-WORK_DIR=$PKG_NAME_$PKG_VERSION
+WORK_DIR=${PKG_NAME}_${PKG_VERSION}
 
 unset -f get_data
 

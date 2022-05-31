@@ -68,25 +68,33 @@ get_file_version() {
     FVERSION=$PKG_VERSION
   fi
 
+  echo $FVERSION
+}
+
+get_deb_version() {
+  FVERSION=$(get_file_version)
+
+  DVERSION=""
+
   # Ревизия debian
   if [ "$PKG_DEBIAN_REV" != "none" ]; then
-    FVERSION=$FVERSION-$PKG_DEBIAN_REV
+    DVERSION=${FVERSION}-${PKG_DEBIAN_REV}
   fi
 
-  echo $FVERSION~$PKG_PPA
+  echo $DVERSION
 }
 
 get_change_version() {
 
-  SVERSION=$(get_file_version)
+  DVERSION=$(get_deb_version)
 
   CVERSION=""
 
   # Эпоха
   if [ "$PKG_EPOCH" != "none" ]; then
-    CVERSION=$PKG_EPOCH:$SVERSION
+    CVERSION=$PKG_EPOCH:$DVERSION
   else
-    CVERSION=$SVERSION
+    CVERSION=$DVERSION
   fi
 
   echo $CVERSION

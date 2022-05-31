@@ -1,8 +1,7 @@
 # Список пакетов main
-LIST_PKG="oscam"
-#\
-#oscam \
-#lcdproc"
+LIST_PKG="tvheadend \
+oscam \
+lcdproc"
 
 #old
 #projectm \

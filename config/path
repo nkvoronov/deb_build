@@ -90,7 +90,7 @@ set -e
 . config/functions
 
 # Рабочая папка
-  WORK_DIR=$PKG_NAME-$PKG_VERSION
+  WORK_DIR=${PKG_NAME}_${PKG_VERSION}
 
 
 
