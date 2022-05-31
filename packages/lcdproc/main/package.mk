@@ -4,11 +4,11 @@ PKG_NAME="lcdproc"
 # Версия пакета
 PKG_VERSION="0.5.9"
 
-# Версия пакета префикс
-PKG_VERSION_PRE="none"
+# Эпоха (по умолчанию "none")
+PKG_EPOCH="none"
 
-# Версия пакета ревизия
-PKG_VERSION_REV="9"
+# Ревизия debian (по умолчанию "none")
+PKG_DEBIAN_REV="9"
 
 # Тип получаемых исходников (git,svn,hg,web)
 PKG_SOURCE_TYPE="git"

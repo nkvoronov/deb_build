@@ -32,8 +32,6 @@ get_rev_sources() {
   elif [ "$PKG_SOURCE_TYPE" = "hg" ]; then
     cd $PKG_SOURCE
     NEW_REV=`hg identify --id`
-  elif [ "$PKG_SOURCE_TYPE" = "web" ]; then
-    NEW_REV="0000001"
   fi
 
   echo $NEW_REV
@@ -42,60 +40,54 @@ get_rev_sources() {
 
 get_pref_sources() {
 
-  PREFIX=""
-
   # Префикс
-  PREFIX=""
+  SPREFIX="none"
+
   if [ "$PKG_SOURCE_TYPE" = "git" ]; then
-    PREFIX="git"
+    SPREFIX="git"
   elif [ "$PKG_SOURCE_TYPE" = "svn" ]; then
-    PREFIX="rev"
+    SPREFIX="rev"
   elif [ "$PKG_SOURCE_TYPE" = "hg" ]; then
     PREFIX="rev"
   fi
 
-  echo $PREFIX
-}
-
-get_full_version() {
-
-  PVERSION=$PKG_VERSION
-
-  # Версия пакета ревизия
-  if [ "$PKG_VERSION_REV" != "none" ]; then
-    PVERSION=$PVERSION.$PKG_VERSION_REV
-  fi
-
-  echo $PVERSION
+  echo $SPREFIX
 }
 
 get_file_version() {
-
-  NEW_REV=$(get_rev_sources)
+  
   FVERSION=""
-  PREFIX=$(get_pref_sources)
-  CUR_DATE_FILE=`date +'%Y%m%d'`
-  PVERSION=$(get_full_version)
+    
+  SPREFIX=$(get_pref_sources)
 
-  FVERSION=$PVERSION~$PREFIX$CUR_DATE_FILE.$NEW_REV~$PKG_PPA
-
-  echo $FVERSION
+  if [ "$SPREFIX" != "none" ]; then
+    NEW_REV=$(get_rev_sources)
+    CUR_DT_FILE=`date +'%Y%m%d.%H%M'`
+    FVERSION=$PKG_VERSION+$SPREFIX$CUR_DT_FILE-$NEW_REV
+  else
+    FVERSION=$PKG_VERSION
+  fi
+  
+  # Ревизия debian
+  if [ "$PKG_DEBIAN_REV" != "none" ]; then
+    FVERSION=$FVERSION-$PKG_DEBIAN_REV
+  fi 
+ 
+  echo $FVERSION~$PKG_PPA
 }
 
 get_change_version() {
 
-  NEW_REV=$(get_rev_sources)
-  SVERSION=""
-  PREFIX=$(get_pref_sources)
-  CUR_DATE_FILE=`date +'%Y%m%d'`
-  PVERSION=$(get_full_version)
+  SVERSION=$(get_file_version)
+  
+  CVERSION=""
 
-  # Версия пакета префикс
-  if [ "$PKG_VERSION_PRE" != "none" ]; then
-    PVERSION=$PKG_VERSION_PRE:$PVERSION
+  # Эпоха
+  if [ "$PKG_EPOCH" != "none" ]; then
+    CVERSION=$PKG_EPOCH:$SVERSION
+  else
+    CVERSION=$SVERSION
   fi
 
-  SVERSION=$PVERSION~$PREFIX$CUR_DATE_FILE.$NEW_REV~$PKG_PPA
-
-  echo $SVERSION
+  echo $CVERSION
 }

@@ -4,11 +4,11 @@ PKG_NAME="kodi"
 # Версия пакета
 PKG_VERSION="19.4"
 
-# Версия пакета префикс
-PKG_VERSION_PRE="6"
+# Эпоха (по умолчанию "none")
+PKG_EPOCH="6"
 
-# Версия пакета ревизия
-PKG_VERSION_REV="none"
+# Ревизия debian (по умолчанию "none")
+PKG_DEBIAN_REV="1"
 
 # Тип получаемых исходников (git,svn,hg,web)
 PKG_SOURCE_TYPE="git"

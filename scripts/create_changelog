@@ -15,7 +15,7 @@ fi
 PKG_RELEASE=$4
 
 # Рабочая папка
-WORK_DIR=$PKG_NAME-$(get_full_version)
+WORK_DIR=$PKG_NAME-$PKG_VERSION
 
 # Создаем архив исходников
 printf "%${BUILD_INDENT}c ${blue}Создание оригинального tar ...${endcolor}\n" ' '

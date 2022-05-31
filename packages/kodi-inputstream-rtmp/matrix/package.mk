@@ -4,11 +4,11 @@ PKG_NAME="kodi-inputstream-rtmp"
 # Версия пакета
 PKG_VERSION="19.0.1"
 
-# Версия пакета префикс
-PKG_VERSION_PRE="6"
+# Эпоха (по умолчанию "none")
+PKG_EPOCH="6"
 
-# Версия пакета ревизия
-PKG_VERSION_REV="4"
+# Ревизия debian (по умолчанию "none")
+PKG_DEBIAN_REV="1"
 
 # Тип получаемых исходников (git,svn,hg,web)
 PKG_SOURCE_TYPE="git"

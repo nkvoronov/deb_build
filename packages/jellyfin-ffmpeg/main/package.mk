@@ -4,11 +4,11 @@ PKG_NAME="jellyfin-ffmpeg"
 # Версия пакета
 PKG_VERSION="5.0.1"
 
-# Версия пакета префикс
-PKG_VERSION_PRE="none"
+# Эпоха (по умолчанию "none")
+PKG_EPOCH="none"
 
-# Версия пакета ревизия
-PKG_VERSION_REV="4"
+# Ревизия debian (по умолчанию "none")
+PKG_DEBIAN_REV="none"
 
 # Тип получаемых исходников (git,svn,hg,web)
 PKG_SOURCE_TYPE="git"

@@ -4,11 +4,11 @@ PKG_NAME="projectm"
 # Версия пакета
 PKG_VERSION="3.1.2"
 
-# Версия пакета префикс
-PKG_VERSION_PRE="none"
+# Эпоха (по умолчанию "none")
+PKG_EPOCH="none"
 
-# Версия пакета ревизия
-PKG_VERSION_REV="none"
+# Ревизия debian (по умолчанию "none")
+PKG_DEBIAN_REV="1"
 
 # Тип получаемых исходников (git,svn,hg,web)
 PKG_SOURCE_TYPE="git"

@@ -15,9 +15,9 @@ set -e
   # Версия пакета
   PKG_VERSION="none"
   # Версия пакета префикс
-  PKG_VERSION_PRE="none"
+  PKG_EPOCH="none"
   # Версия пакета ревизия
-  PKG_VERSION_REV="none"
+  PKG_DEBIAN_REV="none"
   # Тип получаемых исходников (git,svn,hg,web)
   PKG_SOURCE_TYPE="none"
   # Путь к исходникам
@@ -90,7 +90,7 @@ set -e
 . config/functions
 
 # Рабочая папка
-  WORK_DIR=$PKG_NAME-$(get_full_version)
+  WORK_DIR=$PKG_NAME-$PKG_VERSION
 
 
 
