@@ -1,6 +1,6 @@
 # Релиз пакета (trusty или др.)
-PKG_RELEASE_LIST="focal"
-# PKG_RELEASE_LIST="jammy"
+# PKG_RELEASE_LIST="focal"
+PKG_RELEASE_LIST="jammy"
 
 # Корень репозитория
 ROOT_REPOSITORY=""

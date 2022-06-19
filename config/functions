@@ -60,10 +60,11 @@ get_file_version() {
 
   SPREFIX=$(get_pref_sources)
 
+  DATE_PART=$1
+
   if [ "$SPREFIX" != "none" ]; then
     NEW_REV=$(get_rev_sources)
-    CUR_DT_FILE=`date +'%Y%m%d.%H%M'`
-    FVERSION=$PKG_VERSION+$SPREFIX$CUR_DT_FILE-$NEW_REV
+    FVERSION=$PKG_VERSION+$SPREFIX$DATE_PART-$NEW_REV
   else
     FVERSION=$PKG_VERSION
   fi
@@ -72,7 +73,10 @@ get_file_version() {
 }
 
 get_deb_version() {
-  FVERSION=$(get_file_version)
+
+  DATE_PART=$1
+
+  FVERSION=$(get_file_version $DATE_PART)
 
   DVERSION=""
 
@@ -86,7 +90,9 @@ get_deb_version() {
 
 get_change_version() {
 
-  DVERSION=$(get_deb_version)
+  DATE_PART=$1
+
+  DVERSION=$(get_deb_version $DATE_PART)
 
   CVERSION=""
 

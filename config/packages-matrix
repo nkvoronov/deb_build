@@ -1,19 +1,20 @@
 # Список пакетов kodi
-LIST_PKG="kodi \
-kodi-pvr-hts \
-kodi-pvr-iptvsimple \
-kodi-visualization-projectm \
-kodi-audioencoder-flac \
-kodi-audioencoder-lame \
-kodi-audioencoder-vorbis \
-kodi-audioencoder-wav \
-kodi-inputstream-rtmp \
-kodi-inputstream-adaptive \
-kodi-inputstream-ffmpegdirect \
-kodi-imagedecoder-heif \
-kodi-imagedecoder-mpo \
-kodi-imagedecoder-raw \
-kodi-vfs-libarchive \
-kodi-vfs-rar \
-kodi-vfs-sacd \
-kodi-vfs-sftp"
+LIST_PKG="kodi"
+# \
+#kodi-pvr-hts \
+#kodi-pvr-iptvsimple \
+#kodi-visualization-projectm \
+#kodi-audioencoder-flac \
+#kodi-audioencoder-lame \
+#kodi-audioencoder-vorbis \
+#kodi-audioencoder-wav \
+#kodi-inputstream-rtmp \
+#kodi-inputstream-adaptive \
+#kodi-inputstream-ffmpegdirect \
+#kodi-imagedecoder-heif \
+#kodi-imagedecoder-mpo \
+#kodi-imagedecoder-raw \
+#kodi-vfs-libarchive \
+#kodi-vfs-rar \
+#kodi-vfs-sacd \
+#kodi-vfs-sftp"

@@ -104,11 +104,13 @@ do
       rm -f $STAMPS/$3-update-key
     fi
 
+    CUR_DT_FILE=`date +'%Y%m%d.%H%M'`
+
     # Подготовка исходников к билду
     ./scripts/prepare_build $1 $2 $3 $PKG_RELEASE $NEW_REV
 
     # Изменяем changelog
-    ./scripts/create_changelog $1 $2 $3 $PKG_RELEASE
+    ./scripts/create_changelog $1 $2 $3 $PKG_RELEASE $CUR_DT_FILE
 
     # Собирам deb пакет
     printf "%${BUILD_INDENT}c ${blue}Сборка deb пакета ...${endcolor}\n" ' '
@@ -123,7 +125,7 @@ do
     printf "%${BUILD_INDENT}c ${blue}Перемещение пакетов в хранилище ...${endcolor}\n" ' '
     cd $PKG_BUILD/$PKG_RELEASE
     if [ "$PKG_REPOS" = "launchpad" ]; then
-      DVERSION=$(get_deb_version)
+      DVERSION=$(get_deb_version $CUR_DT_FILE)
       dput $PKG_LAUNCHPAD_REPOSITORY ${PKG_NAME}_${DVERSION}~${PKG_PPA}~${PKG_RELEASE}_source.changes
     else
       reprepro -b $ROOT_REPOSITORY  includedeb $PKG_RELEASE *.deb

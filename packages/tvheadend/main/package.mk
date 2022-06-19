@@ -2,7 +2,7 @@
 PKG_NAME="tvheadend"
 
 # Версия пакета
-PKG_VERSION="4.3.2024"
+PKG_VERSION="4.3.2025"
 
 # Эпоха (по умолчанию "none")
 PKG_EPOCH="none"
