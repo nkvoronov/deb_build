@@ -3,13 +3,6 @@ LIST_PKG="tvheadend \
 oscam \
 lcdproc"
 
-#old
-#projectm \
-#acestream-engine \
-#openssl \
-#jellyfin-web \
-#jellyfin-server \
-#jellyfin-ffmpeg \
 
 
 

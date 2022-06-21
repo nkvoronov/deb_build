@@ -2,7 +2,7 @@
 PKG_NAME="kodi-pvr-iptvsimple"
 
 # Версия пакета
-PKG_VERSION="19.1.0"
+PKG_VERSION="19.1.1"
 
 # Эпоха (по умолчанию "none")
 PKG_EPOCH="6"

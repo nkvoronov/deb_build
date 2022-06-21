@@ -1,0 +1,31 @@
+kodi-pvr-hts (3.4.13-1) unstable; urgency=medium
+
+  * New upstream version 3.4.13
+  * Depend on PVR API version of Kodi we built the addon with
+
+ -- Tobias Grimm <etobi@debian.org>  Wed, 28 Dec 2016 10:55:43 +0100
+
+kodi-pvr-hts (3.4.7+git20161104-1) unstable; urgency=medium
+
+  * New upstream version
+  * Build-depend on libkodiplatform-dev (>= 17.1.0) and
+    kodi-addons-dev (>= 17.0~beta3+dfsg1-2)
+  * Dropped obsolete libcec-platform.patch
+  * Standards version 3.9.8
+  * Updated kodi dependency
+
+ -- Tobias Grimm <etobi@debian.org>  Fri, 04 Nov 2016 20:28:36 +0100
+
+kodi-pvr-hts (2.2.14-1) unstable; urgency=medium
+
+  * New upstream release
+  * Now using libkodiplatform > 17.0.0 and libp8-platform (instead of
+    libcec-platform)
+
+ -- Tobias Grimm <etobi@debian.org>  Fri, 04 Mar 2016 12:22:33 +0100
+
+kodi-pvr-hts (2.1.18-1) unstable; urgency=medium
+
+  * Initial release (replaces xbmc-pvr-addons / xbmc-pvr-tvheadend-hts)
+
+ -- Tobias Grimm <etobi@debian.org>  Mon, 23 Nov 2015 21:28:14 +0100

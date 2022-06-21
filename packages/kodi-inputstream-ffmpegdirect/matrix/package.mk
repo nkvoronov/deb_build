@@ -2,7 +2,7 @@
 PKG_NAME="kodi-inputstream-ffmpegdirect"
 
 # Версия пакета
-PKG_VERSION="19.0.1"
+PKG_VERSION="19.0.2"
 
 # Эпоха (по умолчанию "none")
 PKG_EPOCH="6"
