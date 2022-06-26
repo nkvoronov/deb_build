@@ -1,3 +1,9 @@
+projectm (3.1.12-0~focal) focal; urgency=medium
+
+  * Update to version 3.1.12
+
+ -- alwinus <alwinus@kodi.tv>  Thu, 11 Nov 2021 18:32:54 +0100
+
 projectm (3.1.1+rc4-0~bionic) bionic; urgency=medium
 
   * Update to version 3.1.1-rc4

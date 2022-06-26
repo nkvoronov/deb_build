@@ -2,7 +2,7 @@
 PKG_NAME="projectm"
 
 # Версия пакета
-PKG_VERSION="3.1.2"
+PKG_VERSION="3.1.12"
 
 # Эпоха (по умолчанию "none")
 PKG_EPOCH="none"
@@ -20,7 +20,7 @@ PKG_SOURCE_DEST="https://github.com/projectM-visualizer/projectm.git"
 PKG_SOURCE_TREE_VERSION_TYPE="tags"
 
 # Название для типа версии (если пусто то ("none"))
-PKG_SOURCE_TREE_VERSION_NAME="v3.1.2"
+PKG_SOURCE_TREE_VERSION_NAME="v3.1.12"
 
 # Имя папки в архиве (только для web но не пустой ("none"))
 PKG_SOURCE_DIR="none"
@@ -29,7 +29,7 @@ PKG_SOURCE_DIR="none"
 PKG_PPA="ppa1"
 
 # Имя ресурса на launchpad
-PKG_LAUNCHPAD_REPOSITORY="kodi-leia"
+PKG_LAUNCHPAD_REPOSITORY="kodi-matrix"
 
 # Очистка CVS (.git, .svn, .hg)
 PKG_CVS_CLEAR="yes"
