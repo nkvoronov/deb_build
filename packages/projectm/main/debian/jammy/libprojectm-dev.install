@@ -1,0 +1,3 @@
+usr/include/libprojectM
+usr/lib/*/libprojectM.so
+usr/lib/*/pkgconfig/libprojectM.pc

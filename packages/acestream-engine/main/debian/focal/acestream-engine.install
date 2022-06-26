@@ -1,4 +1,0 @@
-debian/acestream-engine.conf            etc/acestream-engine/
-debian/acestream-engine.service         lib/systemd/system/
-debian/acestreamengine-client-console   usr/bin/
-acestream/*                             usr/share/acestream/

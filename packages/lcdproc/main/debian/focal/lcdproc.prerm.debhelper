@@ -1,5 +1,0 @@
-# Automatically added by dh_installinit
-if [ -x "/etc/init.d/LCDd" ] || [ -e "/etc/init/LCDd.conf" ]; then
-	invoke-rc.d LCDd stop || exit $?
-fi
-# End automatically added section

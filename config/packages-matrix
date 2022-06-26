@@ -15,5 +15,6 @@ kodi-imagedecoder-raw \
 kodi-vfs-libarchive \
 kodi-vfs-rar \
 kodi-vfs-sacd \
-kodi-vfs-sftp \
-kodi-visualization-projectm"
+kodi-vfs-sftp"
+# \
+#kodi-visualization-projectm"

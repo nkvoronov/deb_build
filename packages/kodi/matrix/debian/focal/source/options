@@ -1,4 +1,0 @@
-tar-ignore = ".git*"
-tar-ignore = "build/*"
-tar-ignore = "kodi_build*/*"
-
