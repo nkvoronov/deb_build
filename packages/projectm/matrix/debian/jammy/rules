@@ -9,7 +9,7 @@
 #	rm -rf $(BUILDDIR)
 
 override_dh_auto_configure:
-	dh_auto_configure -- --enable-threading --enable-sdl2 --disable-qt --enable-preset-subdirs --disable-threading
+	dh_auto_configure --  --enable-gles --enable-sdl2 --enable-threading --disable-qt --enable-preset-subdirs
 
 #override_dh_auto_install:
 #	dh_auto_install --destdir=$(INSTALLDIR)
