@@ -1,8 +1,0 @@
-#!/bin/sh -e
-
-# activate udev rule before cme tries to upgrade the configuration
-# restrict to usb subsystem used by imon. This could be changed if
-# udev rules are created for other devices.
-udevadm trigger --action=change --subsystem-match=usbmisc
-
-#DEBHELPER#

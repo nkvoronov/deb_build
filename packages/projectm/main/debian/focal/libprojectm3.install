@@ -1,5 +1,0 @@
-usr/lib/*/libprojectM.so.*
-usr/lib/*/libprojectM.a
-usr/share/projectM/config.inp
-usr/share/projectM/presets/*.so
-usr/share/projectM/presets/*.a

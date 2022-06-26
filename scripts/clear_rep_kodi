@@ -54,3 +54,9 @@ reprepro -b $ROOT_REPOSITORY remove $PKG_RELEASE_LIST kodi-vfs-sacd
 reprepro -b $ROOT_REPOSITORY remove $PKG_RELEASE_LIST kodi-vfs-sacd-dbg
 reprepro -b $ROOT_REPOSITORY remove $PKG_RELEASE_LIST kodi-vfs-sftp
 reprepro -b $ROOT_REPOSITORY remove $PKG_RELEASE_LIST kodi-vfs-sftp-dbg
+
+# Projectm
+reprepro -b $ROOT_REPOSITORY remove $PKG_RELEASE_LIST libprojectm-dev
+reprepro -b $ROOT_REPOSITORY remove $PKG_RELEASE_LIST libprojectm3
+reprepro -b $ROOT_REPOSITORY remove $PKG_RELEASE_LIST projectm-data
+

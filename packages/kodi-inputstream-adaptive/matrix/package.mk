@@ -2,7 +2,7 @@
 PKG_NAME="kodi-inputstream-adaptive"
 
 # Версия пакета
-PKG_VERSION="19.0.6"
+PKG_VERSION="19.0.7"
 
 # Эпоха (по умолчанию "none")
 PKG_EPOCH="6"

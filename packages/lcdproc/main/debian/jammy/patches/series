@@ -1,7 +1,0 @@
-fix-hppa-compilation
-tweak-imon-default-value
-tweak-conf
-debian-build-kfreebsd
-fix-menuitem-gcc47
-fix-gcc-10
-lcdproc-0.5.6-imon_cp1251_fonts.patch

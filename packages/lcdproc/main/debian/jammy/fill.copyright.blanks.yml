@@ -1,4 +1,0 @@
----
-server/drivers/hd44780-spi.c:
-  comment: 'only one line of the file is public domain'
-  override-license: GPL
